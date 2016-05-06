@@ -1,0 +1,13 @@
+{
+  "name": "carnage/selenium",
+  "description": "Selenium test framework",
+  "minimum-stability": "dev",
+  "license": "proprietary",
+  "autoload": {
+    "psr-4": {"Carnage\\Selenium\\": "src/"}
+  },
+  "require": {
+    "facebook/webdriver": "~1.1.1",
+    "symfony/console": "~2.8.3"
+  }
+}
