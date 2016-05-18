@@ -9,6 +9,7 @@ class Element
 {
     const ID = 'id';
     const CSS_SELECTOR = 'css-selector';
+    const LINK_TEXT = 'link-text';
 
     private $type;
     private $value;
@@ -29,6 +30,11 @@ class Element
         return new static(self::CSS_SELECTOR, $selector);
     }
 
+    public static function byLinkText($text)
+    {
+        return new static(self::LINK_TEXT, $text);
+    }
+
     public function find(RemoteWebDriver $webDriver)
     {
         switch ($this->type) {
@@ -36,6 +42,8 @@ class Element
                 return $webDriver->findElement(WebDriverBy::id($this->value));
             case self::CSS_SELECTOR:
                 return $webDriver->findElement(WebDriverBy::cssSelector($this->value));
+            case self::LINK_TEXT:
+                return $webDriver->findElement(WebDriverBy::linkText($this->value));
             default:
                 throw new \LogicException('Invalid element search type: ' . $this->type);
         }
@@ -48,6 +56,8 @@ class Element
                 return  'element (by id: "' . $this->value . '")';
             case self::CSS_SELECTOR:
                 return  'element (by css: "' . $this->value . '")';
+            case self::LINK_TEXT:
+                return  'element (by link text: "' . $this->value . '")';
             default:
                 return  'element (by unknown: "' . $this->value . '")';
         }
